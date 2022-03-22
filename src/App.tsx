@@ -1,24 +1,22 @@
 import React from 'react';
-import logo from './logo.svg';
+import { useSelector } from 'react-redux';
 import './App.css';
+import CardList from './app/CardList';
+import { RootState } from './store/store';
+
+const refreshPage = () => { window.location.reload() }
 
 function App() {
+  let gameOver = useSelector((state:RootState) => state.card.gameOver)
+  let title = gameOver ? "Поздравляем!!!!!" : "Вам нужно найти пары одинаковых карт"
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='container'>
+      <h3 id="title">
+        { title }
+        { gameOver ? <button onClick={refreshPage}>Еще раз</button> : null }
+      </h3> 
+      
+      <CardList/>
     </div>
   );
 }
